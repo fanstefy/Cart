@@ -30,7 +30,7 @@ const reducer = (state, action) => {
         }
     }
     if (action.type === 'TOTAL') {
-// first parameter in reduce() function could be anything - number, array or object(but need to be single value)
+// first parameter in reduce() function could be anything - number, array or object(but need to be single value to return)
         let {total, amount} = state.cart.reduce((total, currentItem) => {
             const {price, amount} = currentItem;
             const itemTotal = price * amount;
@@ -45,6 +45,12 @@ const reducer = (state, action) => {
 
         total = parseFloat(total.toFixed(2));
         return {...state, total, amount}
+    }
+    if (action.type === 'SET_ITEMS') {
+        return {...state, cart: action.data, loading: false}
+    }
+    if (action.type === 'LOADING') {
+        return {...state, loading: true}
     }
     
 
